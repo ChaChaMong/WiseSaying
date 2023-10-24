@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WiseSaying {
-
-    static private int lastId = 0;
-
     public void create(Scanner scanner, List<Data> wiseSayingList) {
 
         System.out.print("명언 : ");
@@ -15,10 +12,17 @@ public class WiseSaying {
         System.out.print("작가 : ");
         String author = scanner.nextLine();
 
-        lastId++;
-        Data data = new Data(lastId, content, author);
+        int cnt = 1;
+        for (Data data : wiseSayingList) {
+            if (data.getId() > cnt){
+                break;
+            } else {
+                cnt++;
+            }
+        }
+        Data data = new Data(cnt, content, author);
 
-        wiseSayingList.add(data);
+        wiseSayingList.add(cnt - 1, data);
         System.out.println(data.getId() + "번 명언이 등록되었습니다.");
     }
 
