@@ -10,8 +10,9 @@ import java.io.FileReader;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        JsonFileIO jsonFileIO = new JsonFileIO();
         WiseSaying wiseSaying = new WiseSaying();
-        List<Data> wiseSayingList = new ArrayList<>();
+        List<Data> wiseSayingList = jsonFileIO.readFile();
 
         System.out.println("== 명언 앱 ==");
 
@@ -46,6 +47,8 @@ public class Main {
                 } catch (Exception e) {
                     System.out.println("올바른 번호를 입력하세요.");
                 }
+            } else if (command.equals("빌드")) {
+                jsonFileIO.writeFile(wiseSayingList);
             } else if (command.equals("종료")) {
                 break;
             } else {

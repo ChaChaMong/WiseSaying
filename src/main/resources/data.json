@@ -8,5 +8,10 @@
     "id": 2,
     "content": "명언 2",
     "author": "작가 2"
+  },
+  {
+    "id": 1,
+    "content": "작가3",
+    "author": "명언3"
   }
 ]

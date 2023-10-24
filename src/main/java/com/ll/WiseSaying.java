@@ -18,7 +18,7 @@ public class WiseSaying {
         lastId++;
         Data data = new Data(lastId, content, author);
 
-        wiseSayingList.add(0, data);
+        wiseSayingList.add(data);
         System.out.println(data.getId() + "번 명언이 등록되었습니다.");
     }
 
