@@ -22,28 +22,20 @@ public class WiseSayingApp {
             } else if (command.equals("목록")) {
                 controller.index();
             } else if (command.startsWith("삭제?id=")) {
-                try {
-                    String[] parts = command.split("=");
-                    if (parts.length == 2) {
-                        int id = Integer.parseInt(parts[1]);
-                        controller.delete(id);
-                    } else {
-                        System.out.println("올바른 번호를 입력하세요.");
-                    }
-                } catch (Exception e) {
+                Request rq = new Request(command);
+                int id = rq.getParamAsInteger("id", 0);
+                if (id == 0) {
                     System.out.println("올바른 번호를 입력하세요.");
+                } else {
+                    controller.delete(id);
                 }
             } else if (command.startsWith("수정?id=")) {
-                try {
-                    String[] parts = command.split("=");
-                    if (parts.length == 2) {
-                        int id = Integer.parseInt(parts[1]);
-                        controller.update(scanner, id);
-                    } else {
-                        System.out.println("올바른 번호를 입력하세요.");
-                    }
-                } catch (Exception e) {
+                Request rq = new Request(command);
+                int id = rq.getParamAsInteger("id", 0);
+                if (id == 0) {
                     System.out.println("올바른 번호를 입력하세요.");
+                } else {
+                    controller.update(scanner, id);
                 }
             } else if (command.equals("빌드")) {
                 controller.build();
@@ -56,5 +48,4 @@ public class WiseSayingApp {
 
         scanner.close();
     }
-
 }

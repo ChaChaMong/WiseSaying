@@ -12,6 +12,10 @@ public class WiseSayingController {
         this.view = view;
     }
 
+    public void execute(Request rq) {
+
+    }
+
     public void create(Scanner scanner) {
         System.out.print("명언 : ");
         String content = scanner.nextLine();
