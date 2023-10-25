@@ -16,11 +16,11 @@ public class JsonFileIO {
     // Gson 객체 생성
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public List<Data> readFile() {
-        List<Data> dataList = null;
+    public List<WiseSaying> readFile() {
+        List<WiseSaying> dataList = null;
         try (FileReader reader = new FileReader(jsonFilePath)) {
             // JSON 파일을 읽어서 List로 파싱
-            Type listType = new TypeToken<List<Data>>() {}.getType();
+            Type listType = new TypeToken<List<WiseSaying>>() {}.getType();
             dataList = gson.fromJson(reader, listType); // List 타입으로 파싱
 
         } catch (IOException e) {
@@ -29,7 +29,7 @@ public class JsonFileIO {
         return dataList;
     }
 
-    public void writeFile(List<Data> dataList) {
+    public void writeFile(List<WiseSaying> dataList) {
         try (FileReader reader = new FileReader(jsonFilePath)) {
             // JSON 파일을 읽어서 List로 파싱
 

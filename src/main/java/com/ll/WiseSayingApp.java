@@ -1,14 +1,16 @@
 package com.ll;
 
-import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class WiseSayingApp {
     public static void main(String[] args) {
+        WiseSayingModel model = new WiseSayingModel();
+        WiseSayingView view = new WiseSayingView();
+        WiseSayingController controller = new WiseSayingController(model, view);
+
+        controller.load();
+
         Scanner scanner = new Scanner(System.in);
-        JsonFileIO jsonFileIO = new JsonFileIO();
-        WiseSaying wiseSaying = new WiseSaying();
-        List<Data> wiseSayingList = jsonFileIO.readFile();
 
         System.out.println("== 명언 앱 ==");
 
@@ -16,15 +18,15 @@ public class Main {
             System.out.print("명령) ");
             String command = scanner.nextLine();
             if (command.equals("등록")) {
-                wiseSaying.create(scanner, wiseSayingList);
+                controller.create(scanner);
             } else if (command.equals("목록")) {
-                wiseSaying.index(wiseSayingList);
+                controller.index();
             } else if (command.startsWith("삭제?id=")) {
                 try {
                     String[] parts = command.split("=");
                     if (parts.length == 2) {
                         int id = Integer.parseInt(parts[1]);
-                        wiseSaying.delete(wiseSayingList, id);
+                        controller.delete(id);
                     } else {
                         System.out.println("올바른 번호를 입력하세요.");
                     }
@@ -36,7 +38,7 @@ public class Main {
                     String[] parts = command.split("=");
                     if (parts.length == 2) {
                         int id = Integer.parseInt(parts[1]);
-                        wiseSaying.edit(scanner, wiseSayingList, id);
+                        controller.update(scanner, id);
                     } else {
                         System.out.println("올바른 번호를 입력하세요.");
                     }
@@ -44,7 +46,7 @@ public class Main {
                     System.out.println("올바른 번호를 입력하세요.");
                 }
             } else if (command.equals("빌드")) {
-                jsonFileIO.writeFile(wiseSayingList);
+                controller.build();
             } else if (command.equals("종료")) {
                 break;
             } else {
