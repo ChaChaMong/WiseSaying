@@ -19,14 +19,14 @@ public class WiseSayingController {
             create(scanner);
         } else if (command.equals("목록")) {
             index();
-        } else if (command.startsWith("삭제?id=")) {
+        } else if (command.startsWith("삭제?")) {
             int id = rq.getParamAsInteger("id", 0);
             if (id == 0) {
                 System.out.println("올바른 번호를 입력하세요.");
             } else {
                 delete(id);
             }
-        } else if (command.startsWith("수정?id=")) {
+        } else if (command.startsWith("수정?")) {
             int id = rq.getParamAsInteger("id", 0);
             if (id == 0) {
                 System.out.println("올바른 번호를 입력하세요.");
