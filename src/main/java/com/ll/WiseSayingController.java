@@ -12,28 +12,28 @@ public class WiseSayingController {
         this.view = view;
     }
 
-    public void execute(Scanner scanner, String command) {
-        Request rq = new Request(command);
-
-        if (command.equals("등록")) {
+    public void execute(Scanner scanner, String cmd) {
+        if (cmd.equals("등록")) {
             create(scanner);
-        } else if (command.equals("목록")) {
+        } else if (cmd.equals("목록")) {
             index();
-        } else if (command.startsWith("삭제?")) {
-            int id = rq.getParamAsInteger("id", 0);
+        } else if (cmd.startsWith("삭제?")) {
+            Rq rq = new Rq(cmd);
+            int id = rq.getParameterAsInt("id", 0);
             if (id == 0) {
                 System.out.println("올바른 번호를 입력하세요.");
             } else {
                 delete(id);
             }
-        } else if (command.startsWith("수정?")) {
-            int id = rq.getParamAsInteger("id", 0);
+        } else if (cmd.startsWith("수정?")) {
+            Rq rq = new Rq(cmd);
+            int id = rq.getParameterAsInt("id", 0);
             if (id == 0) {
                 System.out.println("올바른 번호를 입력하세요.");
             } else {
                 update(scanner, id);
             }
-        } else if (command.equals("빌드")) {
+        } else if (cmd.equals("빌드")) {
             build();
         } else {
             System.out.println("등록되지 않은 명령입니다.");
