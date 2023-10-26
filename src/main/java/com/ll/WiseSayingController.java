@@ -106,7 +106,7 @@ public class WiseSayingController {
 
 
     public void load() {
-        model.setWiseSayingList(jsonFileIO.readFile(jsonLiveFilePath));
+        model.setWiseSayingList(jsonFileIO.readFile(jsonLiveFilePath, WiseSaying.class));
     }
 
     public void write() {

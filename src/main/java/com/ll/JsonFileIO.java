@@ -14,11 +14,11 @@ public class JsonFileIO<T> {
 // Gson 객체 생성
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public List<T> readFile(String filePath) {
+    public List<T> readFile(String filePath, Class<T> type) {
         List<T> dataList = null;
         try (FileReader reader = new FileReader(filePath)) {
             // JSON 파일을 읽어서 List로 파싱
-            Type listType = new TypeToken<List<T>>() {}.getType();
+            Type listType = TypeToken.getParameterized(List.class, type).getType();
             dataList = gson.fromJson(reader, listType); // List 타입으로 파싱
 
         } catch (IOException e) {
