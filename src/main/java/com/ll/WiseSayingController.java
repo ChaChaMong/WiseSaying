@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
-    private WiseSayingModel model;
-    private WiseSayingView view;
+    private final WiseSayingModel model;
+    private final WiseSayingView view;
 
     public WiseSayingController(WiseSayingModel model, WiseSayingView view) {
         this.model = model;
@@ -40,6 +40,11 @@ public class WiseSayingController {
         }
     }
 
+    public void index() {
+        List<WiseSaying> wiseSayingList = model.getWiseSayingList();
+        view.index(wiseSayingList);
+    }
+
     public void create(Scanner scanner) {
         System.out.print("명언 : ");
         String content = scanner.nextLine();
@@ -56,17 +61,15 @@ public class WiseSayingController {
         }
 
         model.addWiseSaying(cnt, content, author);
-        System.out.println(cnt + "번 명언이 등록되었습니다.");
-    }
+        write();
 
-    public void index() {
-        List<WiseSaying> wiseSayingList = model.getWiseSayingList();
-        view.index(wiseSayingList);
+        System.out.println(cnt + "번 명언이 등록되었습니다.");
     }
 
     public void delete(int id) {
         boolean deleted = model.deleteWiseSaying(id);
         if (deleted) {
+            write();
             System.out.println(id + "번 명언이 삭제되었습니다.");
         } else {
             System.out.println(id + "번 명언은 존재하지 않습니다.");
@@ -91,17 +94,28 @@ public class WiseSayingController {
             String author = scanner.nextLine();
 
             model.updateWiseSaying(id, content, author);
+            write();
         } else {
             System.out.println(id + "번 명언은 존재하지 않습니다.");
         }
     }
 
-    private final JsonFileIO jsonFileIO = new JsonFileIO();
+    private final JsonFileIO<WiseSaying> jsonFileIO = new JsonFileIO<>();
+    String jsonLiveFilePath = "src/main/resources/liveData.json"; // JSON 파일의 경로를 설정
+    String jsonBuildFilePath = "src/main/resources/data.json"; // JSON 파일의 경로를 설정
+
+
     public void load() {
-        model.setWiseSayingList(jsonFileIO.readFile());
+        model.setWiseSayingList(jsonFileIO.readFile(jsonLiveFilePath));
+    }
+
+    public void write() {
+        jsonFileIO.writeFile(model.getWiseSayingList(), jsonLiveFilePath);
     }
 
     public void build() {
-        jsonFileIO.writeFile(model.getWiseSayingList());
+        jsonFileIO.writeFile(model.getWiseSayingList(), jsonBuildFilePath);
+
+        System.out.println("data.json 파일의 내용이 갱신되었습니다.");
     }
 }
