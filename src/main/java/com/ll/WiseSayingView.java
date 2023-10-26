@@ -8,7 +8,7 @@ public class WiseSayingView {
         System.out.println("----------------------");
 
         for (WiseSaying data : wiseSayingList) {
-            System.out.println(data.getId() + " / " + data.getAuthor() + " / " + data.getContent());
+            System.out.printf("%d / %s / %s%n", data.getId(), data.getAuthor(), data.getContent());
         }
     }
 }
