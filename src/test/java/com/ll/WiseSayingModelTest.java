@@ -1,7 +1,5 @@
-package com.ll.test;
+package com.ll;
 
-import com.ll.WiseSaying;
-import com.ll.WiseSayingModel;
 import org.testng.annotations.Test;
 
 import java.util.List;
