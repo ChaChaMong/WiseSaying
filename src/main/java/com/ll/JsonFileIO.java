@@ -18,7 +18,7 @@ public class JsonFileIO<T> {
         List<T> dataList = null;
         try (FileReader reader = new FileReader(filePath)) {
             // JSON 파일을 읽어서 List로 파싱
-            Type listType = new TypeToken<List<WiseSaying>>() {}.getType();
+            Type listType = new TypeToken<List<T>>() {}.getType();
             dataList = gson.fromJson(reader, listType); // List 타입으로 파싱
 
         } catch (IOException e) {
