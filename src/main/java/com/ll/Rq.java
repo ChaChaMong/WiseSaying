@@ -1,13 +1,15 @@
 package com.ll;
 
+import com.ll.standard.util.Ut;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Rq {
-    private final Map<String, String> params;
+    private final Map<String, String> paramsMap;
 
     public Rq(String url) {
-        this.params = new HashMap<>();
+        this.paramsMap = new HashMap<>();
         if (url != null) {
             String[] parts = url.split("\\?");
             if (parts.length > 1) {
@@ -15,7 +17,7 @@ public class Rq {
                 for (String paramPair : paramPairs) {
                     String[] keyValue = paramPair.split("=");
                     if (keyValue.length == 2) {
-                        params.put(keyValue[0], keyValue[1]);
+                        paramsMap.put(keyValue[0], keyValue[1]);
                     }
                 }
             }
@@ -23,23 +25,15 @@ public class Rq {
     }
 
     public String getParameter(String paramName) {
-        return params.get(paramName);
+        return paramsMap.get(paramName);
     }
 
     public int getParameterAsInt(String paramName, int defaultValue) {
-        String value = params.get(paramName);
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException e) {
-                // 파싱 실패 시, defaultValue 반환
-            }
-        }
-        return defaultValue;
+        return Ut.str.parseInt(paramsMap.get(paramName), defaultValue);
     }
 
     public String getParameterOrDefault(String paramName, String defaultValue) {
-        String value = params.get(paramName);
+        String value = paramsMap.get(paramName);
         return value != null ? value : defaultValue;
     }
 }
