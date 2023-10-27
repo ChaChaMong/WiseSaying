@@ -7,8 +7,10 @@ public class WiseSayingView {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
-        for (WiseSaying data : wiseSayingList) {
-            System.out.printf("%d / %s / %s%n", data.getId(), data.getAuthor(), data.getContent());
+        if (wiseSayingList != null) {
+            for (WiseSaying data : wiseSayingList) {
+                System.out.printf("%d / %s / %s%n", data.getId(), data.getAuthor(), data.getContent());
+            }
         }
     }
 }
